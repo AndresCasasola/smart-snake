@@ -1,0 +1,41 @@
+
+##### How to compile with pyinstaller for Windows executable (.exe)
+
+1) Compile for first time to generate the file "name.spec":
+   > pyinstaller --oneline name.py
+   It will appear in the same path than the python code you are compiling.
+
+2) Edit the file .spec to add the data (images, sounds,...).
+   Add the following code:
+
+	added_files = [
+     		( 'sounds', 'sounds' ),
+     		( 'images', 'images' ),
+     		( 'fonts', 'fonts' )
+     		]
+
+   This code adds all files from folders sounds, images and fonts.
+  
+   Edit in "Analysis" and assign to datas the list created before:
+
+#########################################################################
+	a = Analysis(['snake_main.py'],
+		pathex=['C:\\Users\\nos12\\Desktop\\pygame'],
+		binaries=[],
+		datas=added_files,	# <- Edited here!
+		hiddenimports=[],
+		hookspath=[],
+		runtime_hooks=[],
+		excludes=[],
+		win_no_prefer_redirects=False,
+		win_private_assemblies=False,
+		cipher=block_cipher,
+             noarchive=False)
+#########################################################################
+
+3) Now compile with the .spec file:
+   > pyinstaller --oneline name.spec
+
+4) The .exe file should be successfully generated in the same folder
+   where the 3) command were executed, in the "dist" folder.
+    
